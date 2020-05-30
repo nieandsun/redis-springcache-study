@@ -3,6 +3,10 @@ package com.nrsc.redis.learning.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.redisson.Redisson;
+import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -48,4 +52,19 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
+
+
+
+    @Autowired
+    private RedisProperties redisProperties;
+
+    @Bean
+    public Redisson redisson(){
+        Config config = new Config();
+        String redisUrl = String.format("redis://%s:%s",redisProperties.getHost()+"",redisProperties.getPort()+"");
+        config.useSingleServer().setAddress(redisUrl).setPassword(redisProperties.getPassword());
+        config.useSingleServer().setDatabase(0);
+        return (Redisson) Redisson.create(config);
+    }
+
 }
