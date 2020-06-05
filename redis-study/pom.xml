@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nrsc.redis</groupId>
-    <artifactId>learning</artifactId>
+    <artifactId>redis-study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>learning</name>
+    <name>redis-study</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
